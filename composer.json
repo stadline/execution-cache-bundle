@@ -1,0 +1,22 @@
+{
+    "name": "stadline/execution-cache-bundle",
+    "description": "This Bundle provides execution cache for Symfony controllers.",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "StadLine",
+            "homepage": "http://www.stadline.com"
+        },
+        {
+            "name": "alex-pex",
+            "email": "alexandre.paixao@stadline.com"
+        }
+    ],
+    "require": {
+        "cache/adapter-common": "^0.1.0"
+    },
+    "autoload": {
+        "psr-4": {"StadLine\\ExecutionCacheBundle\\": ""}
+    }
+}
