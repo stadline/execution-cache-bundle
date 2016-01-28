@@ -113,13 +113,16 @@ class Storage
     {
         $key = $this->getCacheKey($request);
 
+        // retrieve a cache item
         $item = $this->cache->getItem($key);
         $response = $item->get();
 
         if ($response instanceof Response) {
+            // compute remaining ttl
             $expirationDate = $item->getExpirationDate();
             $ttl = $expirationDate->getTimestamp() - date_create('NOW')->getTimestamp();
 
+            // expose the cache key and ttl
             $response->headers->set('X-ServerCache-Key', $key);
             $response->headers->set('X-ServerCache-Expires', $ttl);
         }
@@ -136,11 +139,14 @@ class Storage
     protected function getCacheKey(Request $request)
     {
         if ($this->keyProvider) {
+            // use the key provider
             $key = $this->keyProvider->getCacheKey($request);
         } else {
+            // use default method
             $key = md5($request->getMethod() . ' ' . $request->getUri());
         }
 
+        // append the prefix to the cache key
         return $this->keyPrefix . $key;
     }
 }
