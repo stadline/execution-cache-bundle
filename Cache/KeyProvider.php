@@ -11,10 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 class KeyProvider
 {
     /**
-     * Hash a request URL into a string that returns cache metadata
+     * Hash a request into a string that returns cache metadata
      *
      * @param Request $request
-     *
      * @return string
      */
     public function getCacheKey(Request $request)
@@ -26,10 +25,9 @@ class KeyProvider
     }
 
     /**
-     * Creates an array of cacheable and normalized message headers
+     * Creates an array of cacheable and normalized request headers
      *
      * @param HeaderBag $headers
-     *
      * @return array
      */
     private function persistHeaders(HeaderBag $headers)

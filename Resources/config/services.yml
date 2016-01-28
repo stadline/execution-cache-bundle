@@ -1,14 +1,18 @@
+parameters:
+    execution_cache.storage_prefix: exc_
+    execution_cache.storage_default_ttl: 300
+
 services:
     execution_cache.kernel_listener:
         class: StadLine\ExecutionCacheBundle\Listener\KernelListener
-        arguments: [ @execution_cache.default_storage ]
+        arguments: [ @annotation_reader, @execution_cache.default_storage ]
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController, priority: -255 }
             - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse, priority: -255 }
 
     execution_cache.default_storage:
         class: StadLine\ExecutionCacheBundle\Cache\Storage
-        arguments: [ @cache, 'exc_' ]
+        arguments: [ @cache, %execution_cache.storage_prefix%, %execution_cache.storage_default_ttl% ]
         calls:
             - [ setKeyProvider, [ @execution_cache.default_key_provider ]]
 
