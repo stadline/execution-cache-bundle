@@ -20,9 +20,16 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('stadline_execution_cache');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->arrayNode('storage')->canBeDisabled()
+                    ->children()
+                        ->scalarNode('prefix')->defaultValue('exc_')->end()
+                        ->scalarNode('default_ttl')->defaultValue(300)->end()
+                        ->scalarNode('pool_adapter')->defaultValue('cache')->end()
+                    ->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }

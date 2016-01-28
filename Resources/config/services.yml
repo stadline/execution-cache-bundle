@@ -1,7 +1,3 @@
-parameters:
-    execution_cache.storage_prefix: exc_
-    execution_cache.storage_default_ttl: 300
-
 services:
     execution_cache.kernel_listener:
         class: Stadline\ExecutionCacheBundle\Listener\KernelListener
@@ -12,7 +8,6 @@ services:
 
     execution_cache.default_storage:
         class: Stadline\ExecutionCacheBundle\Cache\Storage
-        arguments: [ @cache, %execution_cache.storage_prefix%, %execution_cache.storage_default_ttl% ]
         calls:
             - [ setKeyProvider, [ @execution_cache.default_key_provider ]]
 
