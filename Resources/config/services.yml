@@ -1,0 +1,16 @@
+services:
+    execution_cache.kernel_listener:
+        class: StadLine\ExecutionCacheBundle\Listener\KernelListener
+        arguments: [ @execution_cache.default_storage ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController, priority: -255 }
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse, priority: -255 }
+
+    execution_cache.default_storage:
+        class: StadLine\ExecutionCacheBundle\Cache\Storage
+        arguments: [ @cache, 'exc_' ]
+        calls:
+            - [ setKeyProvider, [ @execution_cache.default_key_provider ]]
+
+    execution_cache.default_key_provider:
+        class: StadLine\ExecutionCacheBundle\Cache\KeyProvider
