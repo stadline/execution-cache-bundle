@@ -1,6 +1,6 @@
 <?php
 
-namespace StadLine\ExecutionCacheBundle\Cache;
+namespace Stadline\ExecutionCacheBundle\Cache;
 
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;

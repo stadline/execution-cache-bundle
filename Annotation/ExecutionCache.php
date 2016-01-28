@@ -1,6 +1,6 @@
 <?php
 
-namespace StadLine\ExecutionCacheBundle\Annotation;
+namespace Stadline\ExecutionCacheBundle\Annotation;
 
 /**
  * Annotation to enable execution cache on controller methods

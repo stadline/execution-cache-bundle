@@ -1,6 +1,6 @@
 <?php
 
-namespace StadLine\ExecutionCacheBundle\DependencyInjection;
+namespace Stadline\ExecutionCacheBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

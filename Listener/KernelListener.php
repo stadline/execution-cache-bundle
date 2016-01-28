@@ -1,10 +1,10 @@
 <?php
 
-namespace StadLine\ExecutionCacheBundle\Listener;
+namespace Stadline\ExecutionCacheBundle\Listener;
 
 use Doctrine\Common\Annotations\Reader;
-use StadLine\ExecutionCacheBundle\Annotation\ExecutionCache;
-use StadLine\ExecutionCacheBundle\Cache\Storage;
+use Stadline\ExecutionCacheBundle\Annotation\ExecutionCache;
+use Stadline\ExecutionCacheBundle\Cache\Storage;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -19,7 +19,7 @@ class KernelListener implements EventSubscriberInterface
     /**
      * The annotation class used to activate and configure the cache
      */
-    const ANNOTATION_CLASS = 'StadLine\\ExecutionCacheBundle\\Annotation\\ExecutionCache';
+    const ANNOTATION_CLASS = 'Stadline\\ExecutionCacheBundle\\Annotation\\ExecutionCache';
 
     /**
      * @var Reader

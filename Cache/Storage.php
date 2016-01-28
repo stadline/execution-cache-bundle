@@ -1,6 +1,6 @@
 <?php
 
-namespace StadLine\ExecutionCacheBundle\Cache;
+namespace Stadline\ExecutionCacheBundle\Cache;
 
 use Cache\Adapter\Common\CacheItem;
 use Psr\Cache\CacheItemPoolInterface;
