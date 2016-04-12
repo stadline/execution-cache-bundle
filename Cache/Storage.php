@@ -124,18 +124,20 @@ class Storage
 
         if ($metadataResponse instanceof MetadataResponse) {
             $response = $metadataResponse->getResponse();
-            $response->headers->set('X-ServerCache-Key', $key);
+            if ($response instanceof Response) {
+                $response->headers->set('X-ServerCache-Key', $key);
 
-            // compute remaining ttl
-            $expirationDate = $metadataResponse->getMetaData("expirationDate");
-            if ($expirationDate instanceof \DateTime)
-            {
-                $ttl = $expirationDate->getTimestamp() - date_create('NOW')->getTimestamp();
-                $response->headers->set('X-ServerCache-Expires', $ttl);
+                // compute remaining ttl
+                $expirationDate = $metadataResponse->getMetaData("expirationDate");
+                if ($expirationDate instanceof \DateTime) {
+                    $ttl = $expirationDate->getTimestamp() - date_create('NOW')->getTimestamp();
+                    $response->headers->set('X-ServerCache-Expires', $ttl);
+                }
+                return $response;
             }
         }
 
-        return $response;
+        return null;
     }
 
     /**
