@@ -4,6 +4,7 @@ namespace Stadline\ExecutionCacheBundle\Cache;
 
 use Cache\Adapter\Common\CacheItem;
 use Psr\Cache\CacheItemPoolInterface;
+use Stadline\ExecutionCacheBundle\CacheItem\MetadataResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -78,7 +79,12 @@ class Storage
         // save cache item
         $key = $this->getCacheKey($request);
 
-        $item = new CacheItem($key, true, $response, $expirationDate);
+        $metadataReponse = new MetadataResponse($response, array(
+            "expirationDate" => $expirationDate
+        ));
+
+        $item = new CacheItem($key, true, $metadataReponse);
+        $item->expiresAt($expirationDate);
         $this->cache->save($item);
     }
 
@@ -113,18 +119,20 @@ class Storage
     {
         $key = $this->getCacheKey($request);
 
-        // retrieve a cache item
-        $item = $this->cache->getItem($key);
-        $response = $item->get();
+        /** @var MetadataResponse $metadataResponse */
+        $metadataResponse = $this->cache->getItem($key)->get();
 
-        if ($response instanceof Response) {
-            // compute remaining ttl
-            $expirationDate = $item->getExpirationDate();
-            $ttl = $expirationDate->getTimestamp() - date_create('NOW')->getTimestamp();
-
-            // expose the cache key and ttl
+        if ($metadataResponse instanceof MetadataResponse) {
+            $response = $metadataResponse->getResponse();
             $response->headers->set('X-ServerCache-Key', $key);
-            $response->headers->set('X-ServerCache-Expires', $ttl);
+
+            // compute remaining ttl
+            $expirationDate = $metadataResponse->getMetaData("expirationDate");
+            if ($expirationDate instanceof \DateTime)
+            {
+                $ttl = $expirationDate->getTimestamp() - date_create('NOW')->getTimestamp();
+                $response->headers->set('X-ServerCache-Expires', $ttl);
+            }
         }
 
         return $response;
