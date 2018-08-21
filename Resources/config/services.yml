@@ -9,7 +9,7 @@ services:
     execution_cache.default_storage:
         class: Stadline\ExecutionCacheBundle\Cache\Storage
         calls:
-            - [ setKeyProvider, [ @execution_cache.default_key_provider ]]
+            - [ setKeyProvider, [ '@execution_cache.default_key_provider' ]]
 
     execution_cache.default_key_provider:
         class: Stadline\ExecutionCacheBundle\Cache\KeyProvider
