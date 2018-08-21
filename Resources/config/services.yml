@@ -1,7 +1,7 @@
 services:
     execution_cache.kernel_listener:
         class: Stadline\ExecutionCacheBundle\Listener\KernelListener
-        arguments: [ @annotation_reader, @execution_cache.default_storage ]
+        arguments: [ '@annotation_reader', '@execution_cache.default_storage' ]
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController, priority: -255 }
             - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse, priority: -255 }
@@ -9,7 +9,7 @@ services:
     execution_cache.default_storage:
         class: Stadline\ExecutionCacheBundle\Cache\Storage
         calls:
-            - [ setKeyProvider, [ @execution_cache.default_key_provider ]]
+            - [ setKeyProvider, [ '@execution_cache.default_key_provider' ]]
 
     execution_cache.default_key_provider:
         class: Stadline\ExecutionCacheBundle\Cache\KeyProvider
