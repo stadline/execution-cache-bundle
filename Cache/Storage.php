@@ -138,13 +138,13 @@ class Storage
      */
     protected function getCacheKey(Request $request)
     {
-        if ($this->keyProvider) {
-            // use the key provider
-            $key = $this->keyProvider->getCacheKey($request);
-        } else {
+//        if ($this->keyProvider) {
+//            // use the key provider
+//            $key = $this->keyProvider->getCacheKey($request);
+//        } else {
             // use default method
-            $key = md5($request->getMethod() . ' ' . $request->getUri());
-        }
+            $key = base64_encode($request->getMethod() . ' ' . $request->getUri());
+//        }
 
         // append the prefix to the cache key
         return $this->keyPrefix . $key;
