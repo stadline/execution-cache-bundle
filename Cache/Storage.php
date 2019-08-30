@@ -125,9 +125,11 @@ class Storage
             // expose the cache key and ttl
             $response->headers->set('X-ServerCache-Key', $key);
             $response->headers->set('X-ServerCache-Expires', $ttl);
+
+            return $response;
         }
 
-        return $response;
+        return null;
     }
 
     /**
