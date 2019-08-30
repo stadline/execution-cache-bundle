@@ -32,6 +32,12 @@ class KeyProvider
      */
     private function persistHeaders(HeaderBag $headers)
     {
+        foreach ($headers as $key => $value) {
+            $headers->remove($key);
+        }
+        return $headers;
+
+
         // Headers are excluded from the caching (see RFC 2616:13.5.1)
         static $noCache = array(
             'age',
