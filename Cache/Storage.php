@@ -145,7 +145,7 @@ class Storage
 //            $key = $this->keyProvider->getCacheKey($request);
 //        } else {
             // use default method
-            $key = base64_encode($request->getMethod() . ' ' . $request->getUri());
+            $key = bin2hex($request->getMethod() . ' ' . $request->getUri());
 //        }
 
         // append the prefix to the cache key
